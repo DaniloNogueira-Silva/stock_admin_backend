@@ -10,6 +10,7 @@ export class CompaniesRepository {
 
     async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
         const createdCompany = new this.companyModel(createCompanyDto);
+        console.log('createdCompany', createdCompany);
         return createdCompany.save();
     }
 
@@ -18,8 +19,9 @@ export class CompaniesRepository {
     }
 
     async findOne(document: string): Promise<Company> {
-        const companys = await this.companyModel.find().exec();
-        return companys.find((company) => company.document === document);
+        return await this.companyModel.find({
+            document: document
+        }).exec();
     }
 
     async update(id: string, updatedCompanyDto: UpdateCompanyDto): Promise<Company> {
