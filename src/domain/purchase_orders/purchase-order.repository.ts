@@ -11,7 +11,7 @@ import { UpdatePurchaseOrderItemDto } from './dtos/update-purchase-order-item.dt
 export class PurchaseOrderRepository {
   constructor(
     @Inject('PURCHASE_ORDER_MODEL') private purchaseOrderModel,
-    @Inject('PURCHASE_ORDER_ITEM_MODEL') private purshaseOrderItemModel,
+    @Inject('PURCHASE_ORDER_ITEM_MODEL') private purchaseOrderItemModel,
     @Inject('PRODUCT_MODEL') private productModel,
 
   ) { }
@@ -55,7 +55,7 @@ export class PurchaseOrderRepository {
       throw new NotFoundException('PurchaseOrder not found');
     }
 
-    await this.purshaseOrderItemModel.deleteMany({ purchaseOrderId: id, companyId: companyId }).exec();
+    await this.purchaseOrderItemModel.deleteMany({ purchaseOrderId: id, companyId: companyId }).exec();
     const result = await this.purchaseOrderModel.deleteOne({ _id: id }).exec();
 
     if (result.deletedCount === 0) {
@@ -88,7 +88,7 @@ export class PurchaseOrderRepository {
       throw new NotFoundException('Product not found');
     }
 
-    const createdPurchaseOrderItem = await this.purshaseOrderItemModel({
+    const createdPurchaseOrderItem = await this.purchaseOrderItemModel({
       ...createPurchaseOrderItemDto,
       total: foundProduct.price * createPurchaseOrderItemDto.quantity
     });
@@ -96,7 +96,7 @@ export class PurchaseOrderRepository {
   }
 
   async findAllItems(companyId: string, purchaseOrderId: string): Promise<PurchaseOrderItem[]> {
-    return this.purshaseOrderItemModel.find({
+    return this.purchaseOrderItemModel.find({
       companyId: companyId,
       purchaseOrderId: purchaseOrderId
     }).exec();
@@ -107,24 +107,24 @@ export class PurchaseOrderRepository {
       throw new UnprocessableEntityException('Invalid id');
     }
     const objectId = new mongoose.Types.ObjectId(id);
-    const foundedPurchaseOrder = await this.purshaseOrderItemModel.findOne({ _id: objectId, companyId: companyId }).exec();
+    const foundedPurchaseOrder = await this.purchaseOrderItemModel.findOne({ _id: objectId, companyId: companyId }).exec();
     return foundedPurchaseOrder;
   }
 
   async updateItem(id: string, updatePurchaseOrderItemDto: UpdatePurchaseOrderItemDto, companyId: string): Promise<PurchaseOrderItem> {
 
-    const purshaseOrderItemModel = await this.purshaseOrderItemModel.findOne({ _id: id, companyId: companyId }).exec();
+    const purchaseOrderItemModel = await this.purchaseOrderItemModel.findOne({ _id: id, companyId: companyId }).exec();
     const foundPurchaseOrder = await this.findById(updatePurchaseOrderItemDto.purchaseOrderId, updatePurchaseOrderItemDto.companyId);
 
     if (!foundPurchaseOrder || foundPurchaseOrder.status === 'Finalizado') {
       throw new NotFoundException('PurchaseOrder not found');
     }
 
-    if (!purshaseOrderItemModel) {
-      throw new NotFoundException('purshaseOrderItemModel not found');
+    if (!purchaseOrderItemModel) {
+      throw new NotFoundException('purchaseOrderItemModel not found');
     }
 
-    const updatedPurchaseOrder = await this.purshaseOrderItemModel.findByIdAndUpdate(id, updatePurchaseOrderItemDto, { new: true }).exec();
+    const updatedPurchaseOrder = await this.purchaseOrderItemModel.findByIdAndUpdate(id, updatePurchaseOrderItemDto, { new: true }).exec();
 
     if (!updatedPurchaseOrder) {
       throw new Error('PurchaseOrder not found');
@@ -134,13 +134,13 @@ export class PurchaseOrderRepository {
   }
 
   async deleteItem(id: string, companyId: string): Promise<void> {
-    const foundPurchaseOrder = await this.purshaseOrderItemModel.findOne({ _id: id, companyId: companyId }).exec();
+    const foundPurchaseOrder = await this.purchaseOrderItemModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundPurchaseOrder) {
       throw new NotFoundException('PurchaseOrder not found');
     }
 
-    const result = await this.purshaseOrderItemModel.deleteOne({ _id: id }).exec();
+    const result = await this.purchaseOrderItemModel.deleteOne({ _id: id }).exec();
 
     if (result.deletedCount === 0) {
       throw new Error('PurchaseOrder not found');
