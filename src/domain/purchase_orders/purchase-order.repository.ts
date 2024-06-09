@@ -88,6 +88,12 @@ export class PurchaseOrderRepository {
       throw new NotFoundException('Product not found');
     }
 
+    const newQuantity = foundProduct.quantity + createPurchaseOrderItemDto.quantity;
+    await this.productModel.findByIdAndUpdate(
+      foundProduct._id,
+      { quantity: newQuantity }
+    );
+    
     const createdPurchaseOrderItem = await this.purchaseOrderItemModel({
       ...createPurchaseOrderItemDto,
       total: foundProduct.price * createPurchaseOrderItemDto.quantity

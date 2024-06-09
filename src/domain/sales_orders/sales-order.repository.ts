@@ -88,6 +88,16 @@ export class SalesOrderRepository {
       throw new NotFoundException('Product not found');
     }
 
+    const newQuantity = foundProduct.quantity - createSalesOrderItemDto.quantity;
+
+    if(newQuantity < 0) {
+      throw new NotFoundException('Quantity invalid');
+    }
+    await this.productModel.findByIdAndUpdate(
+      foundProduct._id,
+      { quantity: newQuantity }
+    );
+
     const createdSalesOrderItem = await this.salesOrderItemModel({
       ...createSalesOrderItemDto,
       total: foundProduct.price * createSalesOrderItemDto.quantity

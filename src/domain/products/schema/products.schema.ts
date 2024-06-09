@@ -9,5 +9,6 @@ export const ProductSchema = new mongoose.Schema({
   categoryId: { type: String, required: true },
   image_url: { type: String, required: false },
   localizationId: { type: String, required: false },
+  quantity: { type: Number, required: true },
   created_at: { type: Date, default: Date.now },
 });
