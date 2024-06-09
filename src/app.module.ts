@@ -7,6 +7,7 @@ import { ProductModule } from './domain/products/products.module';
 import { CategoryModule } from './domain/categories/categories.module';
 import { LocalizationModule } from './domain/localizations/localizations.module';
 import { SupplierModule } from './domain/supplier/supplier.module';
+import { ClientsModule } from './domain/clients/clients.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { SupplierModule } from './domain/supplier/supplier.module';
     ProductModule,
     CategoryModule,
     LocalizationModule,
-    SupplierModule
+    SupplierModule,
+    ClientsModule
   ],
   controllers: [],
   providers: [],
