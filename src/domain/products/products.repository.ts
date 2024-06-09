@@ -39,7 +39,7 @@ export class ProductRepository {
 
   async update(id: string, updatedProductDto: UpdateProductDto, companyId: string): Promise<Product> {
 
-    const foundProduct = await this.productModel.findOne({ companyId: companyId }).exec();
+    const foundProduct = await this.productModel.findOne({_id: id, companyId: companyId }).exec();
 
     if (!foundProduct) {
       throw new NotFoundException('Product not found');
@@ -55,7 +55,7 @@ export class ProductRepository {
   }
 
   async delete(id: string, companyId: string): Promise<void> {
-    const foundProduct = await this.productModel.findOne({ companyId: companyId }).exec();
+    const foundProduct = await this.productModel.findOne({_id: id, companyId: companyId }).exec();
 
     if (!foundProduct) {
       throw new NotFoundException('Product not found');

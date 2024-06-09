@@ -31,7 +31,7 @@ export class LocalizationRepository {
 
   async update(id: string, updatedLocalizationDto: UpdateLocalizationDto, companyId: string): Promise<localization> {
 
-    const foundLocalization = await this.localizationModel.findOne({ companyId: companyId }).exec();
+    const foundLocalization = await this.localizationModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundLocalization) {
       throw new NotFoundException('Localization not found');
@@ -47,7 +47,7 @@ export class LocalizationRepository {
   }
 
   async delete(id: string, companyId: string): Promise<void> {
-    const foundLocalization = await this.localizationModel.findOne({ companyId: companyId }).exec();
+    const foundLocalization = await this.localizationModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundLocalization) {
       throw new NotFoundException('Localization not found');

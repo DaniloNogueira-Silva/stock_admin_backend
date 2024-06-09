@@ -8,6 +8,7 @@ import { CategoryModule } from './domain/categories/categories.module';
 import { LocalizationModule } from './domain/localizations/localizations.module';
 import { SupplierModule } from './domain/supplier/supplier.module';
 import { ClientsModule } from './domain/clients/clients.module';
+import { PurchaseOrderModule } from './domain/buy_orders/purchase-order.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { ClientsModule } from './domain/clients/clients.module';
     CategoryModule,
     LocalizationModule,
     SupplierModule,
-    ClientsModule
+    ClientsModule,
+    PurchaseOrderModule
   ],
   controllers: [],
   providers: [],

@@ -31,7 +31,7 @@ export class CategoryRepository {
 
   async update(id: string, updatedCategoryDto: UpdateCategoryDto, companyId: string): Promise<Category> {
 
-    const foundCategory = await this.categoryModel.findOne({ companyId: companyId }).exec();
+    const foundCategory = await this.categoryModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundCategory) {
       throw new NotFoundException('Category not found');
@@ -47,7 +47,7 @@ export class CategoryRepository {
   }
 
   async delete(id: string, companyId: string): Promise<void> {
-    const foundCategory = await this.categoryModel.findOne({ companyId: companyId }).exec();
+    const foundCategory = await this.categoryModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundCategory) {
       throw new NotFoundException('Category not found');

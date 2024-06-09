@@ -29,7 +29,7 @@ export class UserRepository {
 
   async update(id: string, updatedUserDto: UpdateUserDto, companyId: string): Promise<User> {
 
-    const foundUser = await this.userModel.findOne({ companyId: companyId }).exec();
+    const foundUser = await this.userModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundUser) {
       throw new NotFoundException('User not found');
@@ -45,7 +45,7 @@ export class UserRepository {
   }
 
   async delete(id: string, companyId: string): Promise<void> {
-    const foundUser = await this.userModel.findOne({ companyId: companyId }).exec();
+    const foundUser = await this.userModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundUser) {
       throw new NotFoundException('User not found');

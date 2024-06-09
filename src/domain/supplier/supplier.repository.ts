@@ -31,7 +31,7 @@ export class SupplierRepository {
 
   async update(id: string, updatedSupplierDto: UpdateSupplierDto, companyId: string): Promise<Supplier> {
 
-    const foundSupplier = await this.supplierModel.findOne({ companyId: companyId }).exec();
+    const foundSupplier = await this.supplierModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundSupplier) {
       throw new NotFoundException('Supplier not found');
@@ -47,7 +47,7 @@ export class SupplierRepository {
   }
 
   async delete(id: string, companyId: string): Promise<void> {
-    const foundSupplier = await this.supplierModel.findOne({ companyId: companyId }).exec();
+    const foundSupplier = await this.supplierModel.findOne({ _id: id, companyId: companyId }).exec();
 
     if (!foundSupplier) {
       throw new NotFoundException('Supplier not found');
