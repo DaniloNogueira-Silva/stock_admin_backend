@@ -6,9 +6,19 @@ import { UserModule } from './domain/users/user.module';
 import { ProductModule } from './domain/products/products.module';
 import { CategoryModule } from './domain/categories/categories.module';
 import { LocalizationModule } from './domain/localizations/localizations.module';
+import { SupplierModule } from './domain/supplier/supplier.module';
 
 @Module({
-  imports: [DatabaseModule, CompaniesModule, UploadModule, UserModule, ProductModule, CategoryModule, LocalizationModule],
+  imports: [
+    DatabaseModule,
+    CompaniesModule,
+    UploadModule,
+    UserModule,
+    ProductModule,
+    CategoryModule,
+    LocalizationModule,
+    SupplierModule
+  ],
   controllers: [],
   providers: [],
 })
