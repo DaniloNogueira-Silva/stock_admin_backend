@@ -8,5 +8,6 @@ export interface Product extends Document {
   readonly code: string;
   readonly categoryId: string;
   readonly localizationId: string;
+  readonly image_url: string;
   readonly created_at: Date;
 }

@@ -15,7 +15,6 @@ export class CompaniesService {
     try {
       const foundedCompany = await this.companiesRepository.findOne(createCompanyDto.document);
       if (foundedCompany) {
-        console.log('foundedCompany', foundedCompany);
         throw new ConflictException('Company already exists');
       }
       return await this.companiesRepository.create(createCompanyDto);

@@ -12,7 +12,6 @@ export class CompaniesController {
 
   @Post()
   create(@Body() createCompanyDto: CreateCompanyDto): Promise<Company> {
-    console.log('createCompanyDto', createCompanyDto);
     return this.companiesService.create(createCompanyDto);
   }
 

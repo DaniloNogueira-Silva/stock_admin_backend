@@ -33,4 +33,8 @@ export class CreateProductDto {
     @IsString()
     @IsOptional()
     localizationId: string;
+
+    @IsString()
+    @IsOptional()
+    image_url?: string;
 }

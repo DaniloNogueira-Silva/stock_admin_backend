@@ -7,6 +7,7 @@ export const ProductSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   code: { type: String, required: false },
   categoryId: { type: String, required: true },
+  image_url: { type: String, required: false },
   localizationId: { type: String, required: false },
   created_at: { type: Date, default: Date.now },
 });

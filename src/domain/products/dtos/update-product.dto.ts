@@ -29,4 +29,8 @@ export class UpdateProductDto {
     @IsString()
     @IsOptional()
     localizationId?: string;
+
+    @IsString()
+    @IsOptional()
+    image_url?: string;
 }
