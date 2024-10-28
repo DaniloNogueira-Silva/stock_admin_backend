@@ -14,7 +14,7 @@ export class CompaniesService {
   async create(createCompanyDto: CreateCompanyDto): Promise<Company> {
     try {
       const foundedCompany = await this.companiesRepository.findOne(createCompanyDto.document);
-      if (foundedCompany) {
+      if (Array.isArray(foundedCompany) && foundedCompany.length > 0) {
         throw new ConflictException('Company already exists');
       }
       return await this.companiesRepository.create(createCompanyDto);
